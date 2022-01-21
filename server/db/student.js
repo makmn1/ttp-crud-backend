@@ -20,9 +20,11 @@ const Student = db.define('student', {
         default: "./images/blank-profile-pic.png"
     },
     gpa: {
-        type: Sequelize.FLOAT(3, 2),
+        type: Sequelize.DECIMAL(3, 2),
         allowNull: true
     }
+}, {
+    freezeTableName: true
 })
 
 module.exports = Student

@@ -15,7 +15,10 @@ const Campus = db.define('campus', {
     },
     description: {
         type: Sequelize.STRING(4000),
-    }
+    },
+
+}, {
+    freezeTableName: true
 })
 
 module.exports = Campus

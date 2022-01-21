@@ -1,25 +1,27 @@
 const Sequelize = require('sequelize')
 const db = require("./database")
 
+
 const Student = db.define('student', {
     firstName: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50),
         allowNull: false
     },
     lastName: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50),
         allowNull: false
     },
-    gender: {
-        type: Sequelize.ENUM("M", "F", "O"),
-        allowNull: false
-    },
-    dob: {
-        type: Sequelize.DATEONLY,
-        allowNull: false
+    email: {
+      type: Sequelize.STRING(100),
+      allowNull: false
     },
     image: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING(2048),
+        default: "./images/blank-profile-pic.png"
+    },
+    gpa: {
+        type: Sequelize.FLOAT(3, 2),
+        allowNull: true
     }
 })
 

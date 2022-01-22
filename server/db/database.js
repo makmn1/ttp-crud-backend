@@ -1,5 +1,5 @@
 const sequelize = require('sequelize')
-const dbConfig = require('../../config/db.config')
+const dbConfig = require('config')
 const pkg = require("../../package.json")
 
 const db = new sequelize(

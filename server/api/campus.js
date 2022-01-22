@@ -1,4 +1,5 @@
 const router = require("express").Router()
+const { restart } = require("nodemon")
 const Campus = require("../db/Campus")
 
 router.get("/", async (req, res) => {
@@ -10,6 +11,17 @@ router.get("/", async (req, res) => {
         res.status(404).send(error)
     }
 })
+//get single campus based on id
+router.get("/:id", async (req, res) => {
+    try {
+        const campus = await Campus.findByPk(req.params.id);
+        res.status(200).json(campus);
+    } catch(error) {
+        console.log(error)
+        res.status(404).send(error)
+    }
+})
+
 
 router.post("/", async (req, res) => {
     try {

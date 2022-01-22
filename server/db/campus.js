@@ -8,6 +8,7 @@ const Campus = db.define('campus', {
     },
     image: {
         type: Sequelize.TEXT,
+        default: "./images/blankcampus.png"
     },
     address: {
         type: Sequelize.TEXT,

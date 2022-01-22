@@ -10,6 +10,16 @@ router.get("/", async (req, res) => {
         res.status(404).send(error)
     }
 })
+//get student based on id
+router.get("/:id",async (req,res) => {
+    try{
+        const student = await Student.findByPk(req.params.id);
+        res.status(200).json(student);
+    } catch(error){
+        console.log(error)
+        res.status(404).send(error)
+    }
+})
 
 router.post("/", async (req, res) => {
     try {

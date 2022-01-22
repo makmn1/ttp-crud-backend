@@ -1,6 +1,5 @@
 const router = require("express").Router()
 const Campus = require("../db/Campus")
-const Student = require("../db/student");
 
 router.get("/", async (req, res) => {
     try {
@@ -22,5 +21,17 @@ router.post("/", async (req, res) => {
         res.status(404).send(error)
     }
 })
+
+router.delete("/:id", async (req, res) => {
+    try {
+        const campus = await Campus.findByPk(req.params.id)
+        campus.destroy()
+        res.status(200).send(`Deleted campus with ID of ${req.params.id}`)
+    } catch (error) {
+        console.log(error)
+        res.status(404).send(error)
+    }
+})
+
 
 module.exports = router

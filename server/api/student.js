@@ -22,4 +22,16 @@ router.post("/", async (req, res) => {
     }
 })
 
+router.delete("/:id", async (req, res) => {
+    try {
+        const student = await Student.findByPk(req.params.id)
+        student.destroy()
+        res.status(200).send(`Deleted student with ID of ${req.params.id}`)
+    } catch (error) {
+        console.log(error)
+        res.status(404).send(error)
+    }
+})
+
+
 module.exports = router

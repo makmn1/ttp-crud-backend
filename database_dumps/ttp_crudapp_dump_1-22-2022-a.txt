@@ -1,0 +1,183 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.1
+-- Dumped by pg_dump version 14.1
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: campus; Type: TABLE; Schema: public; Owner: makmn
+--
+
+CREATE TABLE public.campus (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    image text,
+    address text NOT NULL,
+    description character varying(4000),
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.campus OWNER TO makmn;
+
+--
+-- Name: campus_id_seq; Type: SEQUENCE; Schema: public; Owner: makmn
+--
+
+CREATE SEQUENCE public.campus_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.campus_id_seq OWNER TO makmn;
+
+--
+-- Name: campus_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: makmn
+--
+
+ALTER SEQUENCE public.campus_id_seq OWNED BY public.campus.id;
+
+
+--
+-- Name: student; Type: TABLE; Schema: public; Owner: makmn
+--
+
+CREATE TABLE public.student (
+    id integer NOT NULL,
+    "firstName" character varying(50) NOT NULL,
+    "lastName" character varying(50) NOT NULL,
+    email character varying(100) NOT NULL,
+    image character varying(2048),
+    gpa numeric(3,2),
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL,
+    "campusId" integer
+);
+
+
+ALTER TABLE public.student OWNER TO makmn;
+
+--
+-- Name: student_id_seq; Type: SEQUENCE; Schema: public; Owner: makmn
+--
+
+CREATE SEQUENCE public.student_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.student_id_seq OWNER TO makmn;
+
+--
+-- Name: student_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: makmn
+--
+
+ALTER SEQUENCE public.student_id_seq OWNED BY public.student.id;
+
+
+--
+-- Name: campus id; Type: DEFAULT; Schema: public; Owner: makmn
+--
+
+ALTER TABLE ONLY public.campus ALTER COLUMN id SET DEFAULT nextval('public.campus_id_seq'::regclass);
+
+
+--
+-- Name: student id; Type: DEFAULT; Schema: public; Owner: makmn
+--
+
+ALTER TABLE ONLY public.student ALTER COLUMN id SET DEFAULT nextval('public.student_id_seq'::regclass);
+
+
+--
+-- Data for Name: campus; Type: TABLE DATA; Schema: public; Owner: makmn
+--
+
+COPY public.campus (id, name, image, address, description, "createdAt", "updatedAt") FROM stdin;
+2	CUNY College of Staten Island	\N	2800 Victory Blvd, Staten Island, NY 10314	A college in Staten Island	2022-01-22 20:59:53.225-05	2022-01-22 20:59:53.225-05
+3	CUNY Hunter College	\N	695 Park Ave, New York, NY 10065	A college in Manhattan	2022-01-22 20:59:55.73-05	2022-01-22 20:59:55.73-05
+1	CUNY Brooklyn College	\N	2900 Bedford Ave, Brooklyn, NY 11210	A college in Brooklyn	2022-01-22 20:59:51.668-05	2022-01-22 21:09:30.867-05
+\.
+
+
+--
+-- Data for Name: student; Type: TABLE DATA; Schema: public; Owner: makmn
+--
+
+COPY public.student (id, "firstName", "lastName", email, image, gpa, "createdAt", "updatedAt", "campusId") FROM stdin;
+10	Jane	Doe	janedoe@gmail.com	\N	3.66	2022-01-22 21:00:18.341-05	2022-01-22 21:00:18.341-05	3
+11	John	Doe	johndoe@gmail.com	\N	3.55	2022-01-22 21:00:19.907-05	2022-01-22 21:00:19.907-05	2
+12	Jane	Doe	janedoe@gmail.com	\N	3.66	2022-01-22 21:00:21.58-05	2022-01-22 21:00:21.58-05	3
+7	Bob	Bobert	boberto@gmail.com	\N	3.68	2022-01-22 21:00:12.24-05	2022-01-22 21:02:50.09-05	1
+9	Apple	Slice	fruitsarefruity@gmail.com	\N	4.00	2022-01-22 21:00:16.684-05	2022-01-22 21:04:46.472-05	1
+8	R2	D2	bestrobotever@gmail.com	\N	3.55	2022-01-22 21:00:14.988-05	2022-01-22 21:10:18.365-05	2
+\.
+
+
+--
+-- Name: campus_id_seq; Type: SEQUENCE SET; Schema: public; Owner: makmn
+--
+
+SELECT pg_catalog.setval('public.campus_id_seq', 3, true);
+
+
+--
+-- Name: student_id_seq; Type: SEQUENCE SET; Schema: public; Owner: makmn
+--
+
+SELECT pg_catalog.setval('public.student_id_seq', 12, true);
+
+
+--
+-- Name: campus campus_pkey; Type: CONSTRAINT; Schema: public; Owner: makmn
+--
+
+ALTER TABLE ONLY public.campus
+    ADD CONSTRAINT campus_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: student student_pkey; Type: CONSTRAINT; Schema: public; Owner: makmn
+--
+
+ALTER TABLE ONLY public.student
+    ADD CONSTRAINT student_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: student student_campusId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: makmn
+--
+
+ALTER TABLE ONLY public.student
+    ADD CONSTRAINT "student_campusId_fkey" FOREIGN KEY ("campusId") REFERENCES public.campus(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

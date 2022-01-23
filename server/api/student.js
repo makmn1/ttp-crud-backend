@@ -1,5 +1,5 @@
 const router = require("express").Router()
-const Student = require("../db/Student")
+const Student = require("../db/student")
 
 router.get("/", async (req, res) => {
     try {

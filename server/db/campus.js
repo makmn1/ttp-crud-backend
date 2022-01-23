@@ -1,21 +1,21 @@
-const Sequelize = require('sequelize')
+const { DataTypes } = require('sequelize')
 const db = require("./database")
 
 const Campus = db.define('campus', {
     name: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
     image: {
-        type: Sequelize.TEXT,
+        type: DataTypes.TEXT,
         default: "./images/blankcampus.png"
     },
     address: {
-        type: Sequelize.TEXT,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     description: {
-        type: Sequelize.STRING(4000),
+        type: DataTypes.STRING(4000),
     },
 
 }, {

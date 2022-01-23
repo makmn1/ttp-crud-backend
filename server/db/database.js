@@ -1,8 +1,8 @@
-const sequelize = require('sequelize')
-const dbConfig = require('config')
+const { Sequelize } = require('sequelize')
+const dbConfig = require('../../config/db.config')
 const pkg = require("../../package.json")
 
-const db = new sequelize(
+const db = new Sequelize(
     dbConfig.dbURL || `postgres://localhost:5432/${pkg.name}`,
     {
         user: dbConfig.USER,
@@ -10,9 +10,6 @@ const db = new sequelize(
         logging: false
     }
 )
-
-// DO NOT UNCOMMENT THE LINE BELOW UNLESS YOU WANT TO RESET YOUR DATABASE
-// db.sync({ force: true })
 
 async function connectStatus() {
     try {

@@ -56,6 +56,21 @@ router.post("/", async (req, res) => {
     }
 })
 
+router.patch("/:id",async (req,res) => {
+    try{
+        console.log(req.body)
+        await Campus.update(req.body, {
+            where: {
+                id: req.params.id
+            }
+        })
+        res.status(200).send()
+    } catch(error){
+        console.log(error)
+        res.status(404).send(error)
+    }
+})
+
 router.delete("/:id", async (req, res) => {
     try {
         const campus = await Campus.findByPk(req.params.id)

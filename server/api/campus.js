@@ -1,5 +1,6 @@
 const router = require("express").Router()
 const Campus = require("../db/Campus")
+const Student = require("../db/student")
 
 router.get("/", async (req, res) => {
     try {
@@ -10,11 +11,33 @@ router.get("/", async (req, res) => {
         res.status(404).send(error)
     }
 })
+
 //get single campus based on id
 router.get("/:id", async (req, res) => {
     try {
         const campus = await Campus.findByPk(req.params.id);
         res.status(200).json(campus);
+    } catch(error) {
+        console.log(error)
+        res.status(404).send(error)
+    }
+})
+
+//get single campus based on id with its students
+router.get("/:id/students", async (req, res) => {
+    try {
+        const campus = await Campus.findByPk(req.params.id);
+        const students = await Student.findAll({
+            where: {
+                campusId: req.params.id
+            }
+        })
+
+        res.status(200).json({
+            campus,
+            students
+        })
+
     } catch(error) {
         console.log(error)
         res.status(404).send(error)

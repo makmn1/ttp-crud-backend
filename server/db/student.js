@@ -30,11 +30,15 @@ const Student = db.define('student', {
     },
     image: {
         type: DataTypes.STRING(2048),
-        defaultValue: "./images/blank-profile-pic.png"
+        defaultValue: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
     },
     gpa: {
         type: DataTypes.DECIMAL(3, 2),
-        allowNull: true
+        allowNull: true,
+        validate: {
+            min: 0,
+            max: 4
+        }
     }
 }, {
     freezeTableName: true
